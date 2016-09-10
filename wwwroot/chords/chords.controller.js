@@ -120,7 +120,25 @@
             vm.scoreText[scoreIdx] = scoreLine;
         }
 
+        function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
+            var isAny = false;
+
+             for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
+                for(var stringIdx = 0 ; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
+                    if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
+                        isAny = true;
+                    }
+                }
+            }
+
+            if(!isAny) {
+                addChord();
+            }
+        }
+
         function clickCircle (chord, scoreIdx, fretIdx, stringIdx) {
+
+            checkIfFirstClickOnChordAndActAcordingly(scoreIdx);
 
             var canAdd = testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx);
  
@@ -135,8 +153,6 @@
         }
 
         function ngOnInit() {
-            
-            addChord();
             addChord();
         }
 
