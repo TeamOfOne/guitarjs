@@ -39,8 +39,14 @@
         vm.score = [];
         vm.scoreText = [];
         
-        function testIfNotAlreadyFourFingers(scoreIdx, fretIdx, stringIdx) {
+        function testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx) {
 
+            //you can add if you are de-selcting
+            if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
+                return true;
+            }
+
+            //or if still fingers left
             var totalFingers = 0;
 
             for(var i = 0; i < vm.score[scoreIdx].length; i++) {
@@ -99,35 +105,31 @@
             }
         }
 
+        function changeScoreText (scoreIdx) {
+            
+            var scoreLine = "";
+
+            for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
+                for(var stringIdx = 0 ; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
+                    if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
+                        scoreLine = scoreLine + "f" + fretIdx  + "s" + stringIdx + " ";
+                    }
+                }
+            }
+
+            vm.scoreText[scoreIdx] = scoreLine;
+        }
 
         function clickCircle (chord, scoreIdx, fretIdx, stringIdx) {
 
-            toggleCirclesForClick (chord, scoreIdx, fretIdx, stringIdx);
-
-            console.log(scoreIdx);
-            console.log(fretIdx);
-            console.log(stringIdx);
-
-/*
-            var canAdd = testIfNotAlreadyFourFingers(scoreIdx, fretIdx, stringIdx);
+            var canAdd = testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx);
  
             if(canAdd) {
-                vm.score[scoreIdx][fretIdx][stringIdx].show = !vm.score[scoreIdx][fretIdx][stringIdx].show;
+                toggleCirclesForClick(chord, scoreIdx, fretIdx, stringIdx);
+                changeScoreText(scoreIdx);
             }
             else {
                 console.log('cant add more than four fingers!!!')
-            }
-*/
-            var nrChords = vm.scoreText.length;
-
-            if (nrChords < scoreIdx ) {
-                for(var i = 0; i < scoreIdx; i++) {
-                    vm.scoreText.push(" - ");
-                }
-                vm.scoreText.push("f" + fretIdx  + "s" + stringIdx + " ")
-            }
-            else {
-                vm.scoreText[scoreIdx] = "f" + fretIdx  + "s" + stringIdx;
             }
 
         }
