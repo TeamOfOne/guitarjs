@@ -34,21 +34,14 @@
         vm.circle_r_stroke_width = 1;                   
         vm.circle_r_fill        = 'red';                
 
-
-        vm.score = [];
-        vm.scoreText = [];
-
         // Controller api
         vm.clickCircle          = clickCircle;
         vm.playChord = function() {
             console.log('Score:', vm.score);
             GuitarPlayer.playChord;
         }
-
-
-
         
-        function testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx) {
+            function testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx) {
 
             //you can add if you are de-selcting
             if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
@@ -69,7 +62,23 @@
             return totalFingers < 4;
         }
 
-        function addChord (position) {
+        function getMappingForString(stringIdx, show) {
+            var mapping = {
+                source: '' + stringIdx,
+                source_idx: 0,
+                target :  '' + stringIdx,
+                target_idx: 0,
+                x1: 0,
+                y1: (stringIdx * vm.stringGap),
+                x2: vm.gap,
+                y2: (stringIdx * vm.stringGap),
+                show: show
+            };
+
+            return mapping;
+        }
+
+        function addChord (position, strings) {
 
             var frets = [];
 
@@ -77,17 +86,11 @@
                 var mappings = [];
 
                 for(var i = 0; i < vm.numberOfStrings; i++) {
-                    mappings.push({
-                        source: '' + i,
-                        source_idx: 0,
-                        target :  '' + i,
-                        target_idx: 0,
-                        x1: 0,
-                        y1: (i * vm.stringGap),
-                        x2: vm.gap,
-                        y2: (i * vm.stringGap),
-                        show: false
-                    });    
+                    
+                    //TODO: make show to act acoording to strings arg passed
+                    var show = false;
+
+                    mappings.push(getMappingForString(i, show));    
                 }
 
                 frets.push(mappings);
@@ -96,11 +99,33 @@
 
             if(!position) {
                 vm.score.push(frets);
-                vm.scoreText.push(" ");
+                $rootScope.scoreText.push(" ");
             }
             else {
                 //TODO: insert at a specific position instead of appending to array
             }
+        }
+
+        function fillChordsFromScoreText(text) {
+            
+            vm.score = [];
+            var mappings = [];
+
+            for(var i = 0; i < text.length; i++) {
+                
+                var chords = text[i].split(" ");
+
+                for(var j = 0; j < chords.length; j++) {
+                    var chordText = chords[j];
+                }
+
+                var x1 = chordText.slice(1, chordText.indexOf("s"));
+                var x2 = chordText.slice(chordText.indexOf("s"), chordText.length);
+
+                mappings.push({x : x1, y : x2});
+            }
+
+            return mappings
         }
 
         function toggleCirclesForClick(chord, scoreIdx, fretIdx, stringIdx) {
@@ -126,7 +151,7 @@
                 }
             }
 
-            vm.scoreText[scoreIdx] = scoreLine;
+            $rootScope.scoreText[scoreIdx] = scoreLine;
         }
 
         function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
@@ -161,7 +186,18 @@
 
         }
 
+        function getIndexFromText() {
+            //TODO:
+        }
+
         function ngOnInit() {
+            if(!$rootScope.scoreText) {
+                vm.score = [];
+                $rootScope.scoreText = [];
+            } else {
+                fillChordsFromScoreText($rootScope.scoreText);
+            }
+
             addChord();
         }
 
@@ -204,6 +240,7 @@
                 a.href = imgsrc;
                 a.click();
             };
+        
         }
 
         ngOnInit();

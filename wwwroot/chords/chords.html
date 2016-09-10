@@ -61,8 +61,12 @@
       <input ng-model="$root.scoreText[scoreIndex]"
              ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
              type="text" />
-
+             <br>
+      <input ng-model="$root.scoreText[scoreIndex]"
+             ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
+             type="text" />
+             <br>
        <button ng-click="chordsCtrl.playChord()">Play</button>
-
+       <button ng-click="chordsCtrl.exportToPng(scoreIndex)">PNG</button>
     </div>
 </div>

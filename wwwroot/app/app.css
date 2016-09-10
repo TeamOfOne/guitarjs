@@ -5,7 +5,7 @@ html
 
 body
 {
-    background: #205983 radial-gradient(#205983, #0A2742);
+    /*background: #205983 radial-gradient(#205983, #0A2742);*/
     font-family:Verdana; color:#FFF;
     text-shadow: 1px 1px 8px #000;
 }
