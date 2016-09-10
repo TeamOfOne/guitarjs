@@ -82,6 +82,18 @@
 
             var frets = [];
 
+            //array com 6 posições contendo valores inteiros
+            //com o indice do fret selecionado
+            //sendo que -1 significa que a string está muted
+            //i.e. indica o fret de cada string (corda da guitarra)
+            //var strings = [-1, 3, 2, 0, 0, 0];
+
+            //significa que vair ter show == true
+            //no na string 2 no fret 3
+            //s0f-1 s1f3 s2f2 s3f0 s4f0 s5f0 
+            //[-1  , 3  ,  2 , 0  , 0  , 0  ];
+
+
             for(var j = 0; j < vm.numberOfFrets; j++) {
                 var mappings = [];
 
@@ -90,15 +102,32 @@
                     //TODO: make show to act acoording to strings arg passed
                     var show = false;
 
-                    mappings.push(getMappingForString(i, show));    
+                    mappings.push(getMappingForString(i, show));  
                 }
-
+                
                 frets.push(mappings);
             }
 
-
             if(!position) {
+                if(!strings) {
+                    strings = [];
+
+                    for(var i = 0; i < vm.numberOfStrings; i++) {
+                        strings.push(0);
+                    }
+                }
+
+                var stringsTxt = "[";
+
+                for(var i = 0; i < vm.numberOfStrings - 1; i++) {
+                    stringsTxt = stringsTxt + strings[i] + ", "
+                }
+
+                stringsTxt = stringsTxt + strings[vm.numberOfStrings - 1] + "]"
+
                 vm.score.push(frets);
+                vm.score[vm.score.length - 1].strings = strings;
+                vm.score[vm.score.length - 1].stringsTxt = stringsTxt;
                 $rootScope.scoreText.push(" ");
             }
             else {
@@ -146,7 +175,7 @@
             for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
                 for(var stringIdx = 0 ; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
                     if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
-                        scoreLine = scoreLine + "f" + fretIdx  + "s" + stringIdx + " ";
+                        scoreLine = scoreLine +  "s" + (vm.numberOfStrings - stringIdx - 1) + "f" + fretIdx  + " ";
                     }
                 }
             }
@@ -156,6 +185,10 @@
 
         function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
             var isAny = false;
+
+            if(scoreIdx < vm.score.length - 1) {
+                return;
+            }
 
              for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
                 for(var stringIdx = 0 ; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
