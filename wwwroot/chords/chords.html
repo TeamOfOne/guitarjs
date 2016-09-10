@@ -1,4 +1,5 @@
 <svg id="flet1"  
+     ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index"
      ng-style="{ 
         'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap),
         'height' : chordsCtrl.gap * chordsCtrl.numberOfFrets
@@ -8,18 +9,18 @@
         <g ng-attr-transform="translate({{fretIndex * chordsCtrl.gap}}, 0)" 
            ng-attr-stroke-width="2" 
            ng-attr-stroke="black"
-           ng-repeat="(fretIndex, fret) in chordsCtrl.frets"> j
+           ng-repeat="(fretIndex, fret) in frets"> 
                 <line ng-repeat="mapping in fret track by $index"
                         id="line_{{$index}}"
                         ng-attr-x1="{{mapping.x1}}"
                         ng-attr-y1="{{mapping.y1}}"
                         ng-attr-x2="{{mapping.x2}}"
                         ng-attr-y2="{{mapping.y2}}"
-                        ng-click="chordsCtrl.clickCircle(mapping, fretIndex, $index)"
+                        ng-click="chordsCtrl.clickCircle(mapping, scoreIndex, fretIndex, $index)"
                         ng-attr-stroke="{{chordsCtrl.line_stroke}}"
                         ng-attr-stroke-width="{{chordsCtrl.line_stroke_width}}" />
                 <circle ng-repeat="mapping in fret track by $index"
-                        ng-click="chordsCtrl.clickCircle(mapping, fretIndex, $index)"
+                        ng-click="chordsCtrl.clickCircle(mapping, scoreIndex, fretIndex, $index)"
                         id="circle_l_{{$indexx}}"
                         ng-attr-cx="{{ mapping.x1 + (mapping.x2 - mapping.x1) / 2 }}"
                         ng-attr-cy="{{ mapping.y1 + (mapping.y2 - mapping.y1) / 2 }}"
