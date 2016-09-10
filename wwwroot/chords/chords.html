@@ -1,4 +1,7 @@
-<svg id="flet1"  
+<svg id="chord_{{scoreIndex}}"  
+     xmlns="http://www.w3.org/2000/svg" 
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
      ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index"
      ng-style="{ 
         'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap),
@@ -47,7 +50,8 @@
      </g>
 </svg>
 
-
 <ul>
-   <li ng-repeat="chord in chordsCtrl.scoreText track by $index">{{ chord }}</li>        
+   <li ng-repeat="chord in chordsCtrl.scoreText track by $index">{{ chord }}
+   <a ng-click="chordsCtrl.exportToPng($index)">To Png</a>         
+  </li>        
 </ul>
