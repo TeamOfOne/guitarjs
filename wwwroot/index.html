@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html ng-app="app"
+<head>
+    <title>Equivalências Console</title>
+    <link href="app/app.css" rel="stylesheet"/>
+    <link href="chords/chords.css"  rel="stylesheet" >
+    <link href="webcli.css" rel="stylesheet"/>
+
+<!-- CDN version not very good for development in PSC16 due to bad internet connection
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.1/angular-ui-router.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.min.js"></script>
+-->
+
+    <script src="vendor/angular.min.js"></script>
+    <script src="vendor/angular-ui-router.min.js"></script>
+    <script src="vendor/lodash.min.js"></script>
+
+    <script src="app/app.module.js"></script>
+    <script src="app/app.controller.js"></script>
+    <script src="app/app.routes.js"></script>
+
+    <script src="chords/chords.controller.js"></script>
+    <script src="chords/chords.routes.js"></script>
+</head>
+<body>
+    <h1>Guitar API</h1>
+    
+    <input>
+
+    <a ui-sref="home" ui-sref-active="active">home</a>
+    <a ui-sref="chords" ui-sref-active="active">Chords</a>
+
+    <div ui-view="centerView"></div>
+    
+    <script src="webcli.js"></script>
+    <script>
+        window.demoCLI = new WebCLI();
+    </script>
+    
+</body>
+</html>

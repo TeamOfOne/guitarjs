@@ -1,0 +1,47 @@
+<svg id="flet1"  
+     ng-style="{ 
+        'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap),
+        'height' : chordsCtrl.gap * chordsCtrl.numberOfFrets
+     }"
+     ng-show="chordsCtrl.showSvg">
+     <g transform="translate(2, 2) rotate(90 50 50)">
+        <g ng-attr-transform="translate({{fretIndex * chordsCtrl.gap}}, 0)" 
+           ng-attr-stroke-width="2" 
+           ng-attr-stroke="black"
+           ng-repeat="(fretIndex, fret) in chordsCtrl.frets"> j
+                <line ng-repeat="mapping in fret track by $index"
+                        id="line_{{$index}}"
+                        ng-attr-x1="{{mapping.x1}}"
+                        ng-attr-y1="{{mapping.y1}}"
+                        ng-attr-x2="{{mapping.x2}}"
+                        ng-attr-y2="{{mapping.y2}}"
+                        ng-click="chordsCtrl.clickCircle(mapping, fretIndex, $index)"
+                        ng-attr-stroke="{{chordsCtrl.line_stroke}}"
+                        ng-attr-stroke-width="{{chordsCtrl.line_stroke_width}}" />
+                <circle ng-repeat="mapping in fret track by $index"
+                        ng-click="chordsCtrl.clickCircle(mapping, fretIndex, $index)"
+                        id="circle_l_{{$indexx}}"
+                        ng-attr-cx="{{ mapping.x1 + (mapping.x2 - mapping.x1) / 2 }}"
+                        ng-attr-cy="{{ mapping.y1 + (mapping.y2 - mapping.y1) / 2 }}"
+                        ng-attr-r="{{chordsCtrl.circle_l_r}}"
+                        ng-attr-stroke="{{ mapping.show ? chordsCtrl.circle_l_stroke : 'transparent' }}"
+                        ng-attr-stroke-width="{{chordsCtrl.circle_l_stroke_width}}"
+                        ng-attr-fill="{{ mapping.show ? chordsCtrl.circle_l_fill : 'transparent' }}">
+
+                <text x="0" y="0" 
+                        
+                        transform="translate(0) rotate(-90 50 50)">1</text>
+                        
+                </circle>
+                <line   ng-attr-x1="0" 
+                        ng-attr-y1="0" 
+                        ng-attr-x2="0"                      
+                        ng-attr-y2="{{ chordsCtrl.gap * chordsCtrl.numberOfFrets }}"
+                        ng-attr-stroke="{{chordsCtrl.line_stroke}}"
+                        ng-attr-stroke-width="{{chordsCtrl.line_stroke_width}}">
+                </line>
+
+
+        </g>
+     </g>
+</svg>
