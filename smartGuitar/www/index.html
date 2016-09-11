@@ -14,6 +14,7 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/lodash.min.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -22,8 +23,20 @@
     <script src="app/app.js"></script>
     <script src="app/app.routes.js"></script>
     <script src="app/app.controller.js"></script>
+    <script src="chords/chords.controller.js"></script>
     <script src="playlists/playlists.controller.js"></script>
     <script src="playlist/playlist.controller.js"></script>
+    
+    <script src="services/guitar/guitar-service.js"></script>
+
+    <script src="services/karplus-strong/webaudio.js"></script>
+    <script src="services/karplus-strong/guitarstring_asm.js"></script>
+    <script src="services/karplus-strong/controls.js"></script>
+    <script src="services/karplus-strong/guitarstring.js"></script>
+    <script src="services/karplus-strong/guitar.js"></script>
+    <script src="services/karplus-strong/sequencer.js"></script>
+
+    <script src="services/musiq/musiqjs.min.js"></script>
   </head>
 
   <body ng-app="app">

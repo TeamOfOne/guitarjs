@@ -40,15 +40,27 @@
                 }
                 })
 
+            .state('app.chords', {
+                url: '/playlists/:chordId/:chordname',
+                views: {
+                        'menuContent': {
+                        templateUrl: 'chords/chords.html',
+                        controller: 'ChordsController'
+                        }
+                    }
+                })
+
             .state('app.single', {
                 url: '/playlists/:playlistId',
                 views: {
-                'menuContent': {
-                    templateUrl: 'playlist/playlist.html',
-                    controller: 'PlaylistCtrl'
+                    'menuContent': {
+                        templateUrl: 'playlist/playlist.html',
+                        controller: 'PlaylistCtrl'
+                    }
                 }
-                }
-            });
+            })
+            
+            ;
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/playlists');
     }

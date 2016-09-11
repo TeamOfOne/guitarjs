@@ -1,7 +1,16 @@
-<ion-view view-title="Playlists">
+<ion-view view-title="Guitar Chords">
   <ion-content>
+
+<!--
     <ion-list>
       <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+        {{playlist.title}}
+      </ion-item>
+    </ion-list>
+-->
+
+    <ion-list>
+      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}/noname">
         {{playlist.title}}
       </ion-item>
     </ion-list>
