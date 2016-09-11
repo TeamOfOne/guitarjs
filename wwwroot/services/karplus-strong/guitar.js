@@ -51,7 +51,7 @@ Guitar.prototype.setMode = function(mode) {
     }
 };
 
-var guitar;
+var GuitarPlayer;
 var audioCtx = getAudioContext();
 
 var errorText = document.getElementById("guitarErrorText");

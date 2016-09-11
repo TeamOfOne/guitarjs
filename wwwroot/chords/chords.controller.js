@@ -35,15 +35,175 @@
         vm.circle_r_fill        = 'red';                
 
         // Controller api
-        vm.clickCircle          = clickCircle;
-        vm.playChord = function(index) {
+        vm.clickCircle = clickCircle;
+        vm.playChord = playChord;
+        vm.playSong = startGuitarPlaying;
+
+        var timeUnit = 0.12;
+
+// Create sound samples for the current part of the strum sequence,
+// and queue generation of sound samples of the following part.
+// The rhythms parts have as fine a granularity as possible to enable
+// adjustment of guitar parameters with real-time feedback.
+// (The higher strumGenerationsPerRun, the longer the delay between
+//  parameter adjustments and samples created with the new parameters.)
+        function queueStrums(sequenceN, blockStartTime, chordIndex, precacheTime) {
+            var chords = _.map(vm.score, function(s){return s.strings});
+
+            /*
+            var playState = document.getElementById("playState").value;
+            if (playState == "stopped") {
+                return;
+            }
+            */
+
+            var curStrumStartTime;
+
+            var chord = chords[chordIndex];
+            switch(sequenceN % 14) {
+                case 0:
+                    curStrumStartTime = blockStartTime + timeUnit * 0;
+                    GuitarPlayer.strumChord(curStrumStartTime,  true,  1.0, chord);
+                    break;
+                case 1:
+                    curStrumStartTime = blockStartTime + timeUnit * 4;
+                    GuitarPlayer.strumChord(curStrumStartTime,  true,  1.0, chord);
+                    break;
+                case 2:
+                    curStrumStartTime = blockStartTime + timeUnit * 6;
+                    GuitarPlayer.strumChord(curStrumStartTime,  false, 0.8, chord);
+                    break;
+                case 3:
+                    curStrumStartTime = blockStartTime + timeUnit * 10;
+                    GuitarPlayer.strumChord(curStrumStartTime, false, 0.8, chord);
+                    break;
+                case 4:
+                    curStrumStartTime = blockStartTime + timeUnit * 12;
+                    GuitarPlayer.strumChord(curStrumStartTime, true,  1.0, chord);
+                    break;
+                case 5:
+                    curStrumStartTime = blockStartTime + timeUnit * 14;
+                    GuitarPlayer.strumChord(curStrumStartTime, false, 0.8, chord);
+                    break;
+                case 6:
+                    curStrumStartTime = blockStartTime + timeUnit * 16;
+                    GuitarPlayer.strumChord(curStrumStartTime, true,  1.0, chord);
+                    break;
+                case 7:
+                    curStrumStartTime = blockStartTime + timeUnit * 20;
+                    GuitarPlayer.strumChord(curStrumStartTime, true,  1.0, chord);
+                    break;
+                case 8:
+                    curStrumStartTime = blockStartTime + timeUnit * 22;
+                    GuitarPlayer.strumChord(curStrumStartTime, false, 0.8, chord);
+                    break;
+                case 9:
+                    curStrumStartTime = blockStartTime + timeUnit * 26;
+                    GuitarPlayer.strumChord(curStrumStartTime, false, 0.8, chord);
+                    break;
+                case 10:
+                    curStrumStartTime = blockStartTime + timeUnit * 28;
+                    GuitarPlayer.strumChord(curStrumStartTime, true,  1.0, chord);
+                    break;
+                case 11:
+                    curStrumStartTime = blockStartTime + timeUnit * 30;
+                    GuitarPlayer.strumChord(curStrumStartTime, false, 0.8, chord);
+                    break;
+                case 12:
+
+                    curStrumStartTime = blockStartTime + timeUnit * 31;
+                    GuitarPlayer.strings[2].pluck(curStrumStartTime,   0.7, chord[2]);
+
+                    curStrumStartTime = blockStartTime + timeUnit * 31.5;
+                    GuitarPlayer.strings[1].pluck(curStrumStartTime, 0.7, chord[1]);
+
+                    chordIndex = (chordIndex + 1) % 4;
+                    blockStartTime += timeUnit*32;
+
+                    break;
+
+
+                case 13:
+
+                    curStrumStartTime = blockStartTime + timeUnit * 31;
+                    GuitarPlayer.strings[2].pluck(curStrumStartTime,   0.7, chord[5]);
+
+                    curStrumStartTime = blockStartTime + timeUnit * 31.5;
+                    GuitarPlayer.strings[1].pluck(curStrumStartTime, 0.7, chord[1]);
+
+                    chordIndex = (chordIndex + 1) % 4;
+                    blockStartTime += timeUnit*32;
+
+                    break;
+
+
+
+                default:
+                    break;
+            }
+            sequenceN++;
+
+            // if we're only generating the next strum 200 ms ahead of the current time,
+            // we might be falling behind, so increase the precache time
+            if (curStrumStartTime - audioCtx.currentTime < 0.2) {
+                precacheTime += 0.1;
+            }
+           // document.getElementById("precacheTime").innerHTML =
+           //     precacheTime.toFixed(1) + " seconds";
+
+            // we try to main a constant time between when the strum
+            // has finished generated and when it actually plays
+            // the next strum will be played at curStrumStartTime; so start
+            // generating the one after the next strum at precacheTime before
+            var generateIn = curStrumStartTime - audioCtx.currentTime - precacheTime;
+            if (generateIn < 0)
+                generateIn = 0;
+
+            var nextGenerationCall = function() {
+                queueStrums(sequenceN, blockStartTime, chordIndex, precacheTime);
+            };
+            setTimeout(nextGenerationCall, generateIn * 1000);
+        }
+
+        function startGuitarPlaying() {
+            var startSequenceN = 0;
+            var blockStartTime = audioCtx.currentTime;
+            var startChordIndex = 0;
+            var precacheTime = 0.0;
+            queueStrums(startSequenceN, blockStartTime, startChordIndex, precacheTime);
+        }
+
+
+        function playSong() {
+            var delay = 1000; //  1 second delay between chords
+            var totalDelay =  0;
+            var chordRepetitions  = 2; // number of times to repeat each chord
+            var strum = 1;
+
+            // length - 1 to exclude last auto added empty chord
+            for(var i = 0; i < (vm.score.length - 1); i++) {
+                for(var r = 0; r < chordRepetitions; r++) {
+                    setTimeout(
+                        function (strings, strum) {
+                            GuitarPlayer.playChord(strum, strings)
+                        }, totalDelay, vm.score[i].strings, strum);
+
+                    totalDelay += delay;
+
+                    strum = !strum;
+                }
+            }
+        }
+
+        function playChord(index) {
             console.log('Score:', vm.score);
-            GuitarPlayer.playChord(1, [1,2,0,0,0,0]);
-        };
+            GuitarPlayer.playChord(1, vm.score[index].strings);
+        }
 
         function testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx) {
 
             return true;
+
 /*
             //you can add if you are de-selcting
             if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
@@ -256,7 +416,8 @@
             $rootScope.scoreText[scoreIdx] = extracted_chord;
         }
 
-        function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
+
+           function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
             var isAny = false;
 
             if(scoreIdx < vm.score.length - 1) {
