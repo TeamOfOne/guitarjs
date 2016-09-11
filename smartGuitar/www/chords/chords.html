@@ -3,7 +3,6 @@
 
 <div class="chord_wrapper list card"
      style="background-color: white; margin: 1em;"
-     ng-style="{ 'float' : false ? 'left' : 'none' }"
      ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index">
 
     <div class="item">
@@ -94,7 +93,7 @@
 -->
 
   <a class="tab-item" ng-click="chordsCtrl.playSong()">
-    <i class="icon" ng-class="{ 'ion-play' : !chordsCtrl.playing, 'ion-pause' : chordsCtrl.playing }" ></i>
+    <i class="icon" ng-class="{ 'ion-play' : !chordsCtrl.playing, 'ion-stop' : chordsCtrl.playing }" ></i>
   </a>
 <!--
   <a class="tab-item" ng-click="chordsCtrl.exportToPng()">

@@ -1,3 +1,5 @@
-dic#chords {
-
+@media screen and (min-width : 400px) {
+    .chord_wrapper {
+        float: left;
+    }
 }
