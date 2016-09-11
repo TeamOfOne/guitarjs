@@ -1,15 +1,18 @@
 <ion-view view-title="Guitar Chords">
   <ion-content>
 
-
-
-
-
-<div class="chord_wrapper"
-     style="float: left; background-color: white; margin: 1em;"
+<div class="chord_wrapper list card"
+     style="background-color: white; margin: 1em;"
      ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index">
 
-    <div class="wrappSvg"
+    <div class="item">
+        <input ng-model="$root.scoreText[scoreIndex]"
+                    ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
+                    type="text"/>
+    </div>
+
+    <div class="item item-image"
+         style="margin: 2em; border: none!important;"
          ng-style="{ 'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }">
 
         <svg id="chord_{{scoreIndex}}"
@@ -65,23 +68,25 @@
             </g>
         </svg>
     </div>
-    <div class="wrappInput">
-        <input ng-model="$root.scoreText[scoreIndex]"
-               ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
-               type="text"/>
-        <br>
-        <input ng-model="chordsCtrl.score[scoreIndex].stringsTxt"
-               ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
-               type="text"/>
-        <br>
-        <button ng-click="chordsCtrl.playChord(scoreIndex)">Play</button>
-        <button ng-click="chordsCtrl.exportToPng(scoreIndex)">PNG</button>
-    </div>
 
-    <pre style="display: none;">{{ frets.strings | json }}</pre>
+    <a class="item item-icon-left assertive" ng-click="chordsCtrl.playChord(scoreIndex)">
+        <i class="icon ion-music-note"></i>
+        {{!chordsCtrl.playing ? 'Play' : 'Stop!' }}
+    </a>
 </div>
 
-    <button ng-click="chordsCtrl.playSong()">{{!chordsCtrl.playing ? 'Play me !' : 'plz stop !' }}</button>
-
   </ion-content>
+
+
+<div class="tabs tabs-icon-only">
+  <a class="tab-item">
+    <i class="icon ion-home"></i>
+  </a>
+  <a class="tab-item" ng-click="chordsCtrl.playSong()">
+    <i class="icon" ng-class="{ 'ion-play' : !chordsCtrl.playing, 'ion-stop' : chordsCtrl.playing }" ></i>
+  </a>
+  <a class="tab-item" ng-click="chordsCtrl.exportToPng(scoreIndex)">
+    <i class="icon ion-gear-a"></i>
+  </a>
+</div>
 </ion-view>
