@@ -8,8 +8,9 @@
 
     <div class="item">
         <input ng-model="$root.scoreText[scoreIndex]"
-                    ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
-                    type="text"/>
+               ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
+               type="text"
+               ng-change="chordsCtrl.updateChord(scoreIndex)"/>
     </div>
 
     <div class="item item-image"
