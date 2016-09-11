@@ -35,6 +35,7 @@
         vm.clickCircle = clickCircle;
         vm.playChord = playChord;
         vm.playSong = startGuitarPlaying;
+        vm.updateChord= updateChord;
 
         vm.playing = false;
         vm.delta = 1;
@@ -429,6 +430,31 @@
             $rootScope.scoreText[scoreIdx] = extracted_chord;
         }
 
+
+       function updateChord(scoreIdx)
+        {
+            var positions= GuitarPlayer.getPositionsForChord($rootScope.scoreText[scoreIdx]);
+            if (positions != null)
+            {
+                for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
+                    for(var stringIdx = 0 ; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
+                        vm.score[scoreIdx][fretIdx][stringIdx].show = false;
+                    }
+                }
+
+                var i=0;
+                for (var fret_pos in positions) {
+                   var fret= positions[fret_pos];
+                   if (fret != 0)
+                      vm.score[scoreIdx][fret-1][i].show = true;
+                   i++;
+                }
+
+                if(scoreIdx == vm.score.length - 1) {
+                    addChord();
+                }
+            }
+        }
 
         function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
             var isAny = false;
