@@ -53,7 +53,8 @@ The core features and project goals are:
 
 ## License
 
-TBD
+All code in this project, except the third-party libraries, which have their own licenses,
+is released under the ISC license. See the LICENSE.txt file for details.
 
 ## Acknowledgements
 
