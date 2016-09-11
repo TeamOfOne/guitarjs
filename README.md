@@ -4,7 +4,7 @@
 
 This project aims to provide a platform for guitar beginners and experts alike to create interactive chord diagrams that can be easily edited, played, shared, and saved locally.
 
-The core features are:
+The core features and project goals are:
 - [x] **Interactive** chord diagrams:
 
     while there are lots of great libraries for generating beautiful guitar chord diagrams
