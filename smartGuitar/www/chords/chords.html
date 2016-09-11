@@ -6,10 +6,14 @@
      ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index">
 
     <div class="item">
-        <input ng-model="$root.scoreText[scoreIndex]"
-               ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
-               type="text"
-               ng-change="chordsCtrl.updateChord(scoreIndex)"/>
+        <label class="item item-input">
+            <input ng-model="$root.scoreText[scoreIndex]"
+                ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
+                type="text"
+                placeholder="chord name"
+                ng-change="chordsCtrl.updateChord(scoreIndex)"/>
+        </label>
+
     </div>
 
     <div class="item item-image"
@@ -71,15 +75,13 @@
         ng-class="{ 'assertive' : !chordsCtrl.playing, 'stable' : chordsCtrl.playing }" 
         ng-click="chordsCtrl.playChord(scoreIndex)">
         <i class="icon ion-music-note"></i>
-        Play
+        Play Note
     </a>
 
-<!--
     <a class="item item-icon-left assertive" ng-click="chordsCtrl.exportToPng(scoreIndex)">
         <i class="icon ion-gear-a"></i>
         Export PNG
     </a>
--->
 </div>
 
   </ion-content>
