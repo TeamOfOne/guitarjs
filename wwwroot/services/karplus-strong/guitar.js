@@ -43,7 +43,6 @@ Guitar.prototype.strumChord = function(time, downstroke, velocity, chord) {
         }
         time += Math.random()/128;
     }
-
 };
 
 Guitar.prototype.setMode = function(mode) {

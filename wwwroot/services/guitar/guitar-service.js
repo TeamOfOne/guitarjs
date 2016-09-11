@@ -9,39 +9,51 @@
 
 
     function GuitarPlayer() {
-        var audioContext = getAudioContext();
 
-
-        console.log('Audio context grabbed:', audioContext);
-
+        // external api
         var service = {
             playChord: playChord
         };
 
+        // internal
+        var audioContext = getAudioContext();
+        var strings = [
+            // arguments are:
+            // - audio context
+            // - string number
+            // - octave
+            // - semitone
+            new GuitarString(audioCtx, audioCtx.destination, 0, 2, 4),   // E2
+            new GuitarString(audioCtx, audioCtx.destination, 1, 2, 9),   // A2
+            new GuitarString(audioCtx, audioCtx.destination, 2, 3, 2),   // D3
+            new GuitarString(audioCtx, audioCtx.destination, 3, 3, 7),   // G3
+            new GuitarString(audioCtx, audioCtx.destination, 4, 3, 11),  // B3
+            new GuitarString(audioCtx, audioCtx.destination, 5, 4, 4)    // E4
+        ];
 
-        function playChord() {
-            guitar.strumChord(0, true, 1, Guitar.C_MAJOR);
+        function strumChord(time, downstroke, velocity, chord) {
+            var pluckOrder;
+            if (downstroke === true) {
+                pluckOrder = [0, 1, 2, 3, 4, 5];
+            } else {
+                pluckOrder = [5, 4, 3, 2, 1, 0];
+            }
+
+            for (var i = 0; i < 6; i++) {
+                var stringNumber = pluckOrder[i];
+                if (chord[stringNumber] != -1) {
+                    strings[stringNumber].pluck(time, velocity, chord[stringNumber]);
+                }
+                time += Math.random() / 128;
+            }
         }
 
-
-        // Internal methods
-        var errorText = document.getElementById("guitarErrorText");
-
-        if (audioCtx === null) {
-          //  errorText.innerHTML =
-          //      "Error obtaining audio context. Does your browser support Web Audio?";
-        } else {
-           // errorText.style.display = "none";
-           // var guitarControls = document.getElementById("guitarControls");
-           // guitarControls.style.display = "block";
-
-            guitar = new Guitar(audioCtx, audioCtx.destination);
+        function playChord(downstroke, chord) {
+            strumChord(0, downstroke, 1, chord);
         }
-
-
 
         return service;
-    };
+    }
 
 
 
@@ -62,8 +74,11 @@
             return null;
         }
 
+
+
         var audioContext = new constructor();
         window.localAudioContext = audioContext;
+
         return audioContext;
     }
 
