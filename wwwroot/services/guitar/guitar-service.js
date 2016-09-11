@@ -9,10 +9,12 @@
 
 
     function GuitarPlayer() {
+        var guitar2 = new Guitar2();
 
         // external api
         var service = {
-            playChord: playChord
+            playChord: playChord,
+            getChord: getChord
         };
 
         // internal
@@ -52,6 +54,20 @@
             strumChord(0, downstroke, 1, chord);
         }
 
+        function getChord(score)
+        {
+          var ex_chord = guitar2.chordFromFingerPos(score);
+          if(ex_chord != null)
+          {
+            // console.log('Chord from lnotes: '+ ex_chord.longNotation(0));
+            return ex_chord.notation(0);
+          }
+          else
+          {
+            return ""
+          }
+        }
+
         return service;
     }
 
@@ -81,6 +97,7 @@
 
         return audioContext;
     }
+
 
 
 }());
