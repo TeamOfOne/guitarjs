@@ -40,11 +40,10 @@
             console.log('Score:', vm.score);
             GuitarPlayer.playChord(1, [1,2,0,0,0,0]);
         };
-        
+
         function testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx) {
 
             return true;
-
 /*
             //you can add if you are de-selcting
             if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
@@ -109,13 +108,13 @@
                 var mappings = [];
 
                 for(var i = 0; i < vm.numberOfStrings; i++) {
-                    
+
                     //TODO: make show to act acoording to strings arg passed
                     var show = false;
 
-                    mappings.push(getMappingForString(i, show));  
+                    mappings.push(getMappingForString(i, show));
                 }
-                
+
                 frets.push(mappings);
             }
 
@@ -147,12 +146,12 @@
         }
 
         function fillChordsFromScoreText(text) {
-            
+
             vm.score = [];
             var mappings = [];
 
             for(var i = 0; i < text.length; i++) {
-                
+
                 var chords = text[i].split(" ");
 
                 for(var j = 0; j < chords.length; j++) {
@@ -239,18 +238,22 @@
         }
 
         function changeScoreText (scoreIdx) {
-            
+
             var scoreLine = "";
+            var frets= [0,0,0,0,0,0];
 
             for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
                 for(var stringIdx = 0 ; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
                     if(vm.score[scoreIdx][fretIdx][vm.numberOfStrings - stringIdx - 1].show) {
                         scoreLine = scoreLine +  "s" + (stringIdx + 1) + "f" + fretIdx  + " ";
+                        frets[stringIdx]= fretIdx;
                     }
                 }
+
             }
 
-            $rootScope.scoreText[scoreIdx] = scoreLine;
+            var extracted_chord = GuitarPlayer.getChord(frets);
+            $rootScope.scoreText[scoreIdx] = extracted_chord;
         }
 
         function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
@@ -278,7 +281,7 @@
             checkIfFirstClickOnChordAndActAcordingly(scoreIdx);
 
             var canAdd = testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx);
- 
+
             if(canAdd) {
                 toggleCirclesForClick(chord, scoreIdx, fretIdx, stringIdx);
                 updateString(scoreIdx, fretIdx, stringIdx);
@@ -344,7 +347,7 @@
                 a.href = imgsrc;
                 a.click();
             };
-        
+
         }
 
         ngOnInit();
