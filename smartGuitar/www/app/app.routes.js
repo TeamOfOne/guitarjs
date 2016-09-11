@@ -45,7 +45,8 @@
                 views: {
                         'menuContent': {
                         templateUrl: 'chords/chords.html',
-                        controller: 'ChordsController'
+                        controller: 'ChordsController',
+                        controllerAs: 'chordsCtrl'
                         }
                     }
                 })
