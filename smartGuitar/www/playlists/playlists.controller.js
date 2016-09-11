@@ -4,7 +4,7 @@
     angular.module('app')
         .controller('PlaylistsCtrl', PlaylistsCtrl);
 
-    PlaylistsCtrl.$inject = ["_", "$rootScope", $scope];
+    PlaylistsCtrl.$inject = ["_", "$rootScope", "$scope"];
     
     function PlaylistsCtrl(_, $rootScope, $scope) {
                 
