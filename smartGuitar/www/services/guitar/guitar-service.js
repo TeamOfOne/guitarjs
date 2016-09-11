@@ -35,7 +35,8 @@
             strings: strings,
             playChord: playChord,
             strumChord: strumChord,
-            getChord: getChord
+            getChord: getChord,
+            getPositionsForChord: getPositionsForChord
         };
 
         // internal
@@ -73,6 +74,31 @@
           {
             return ""
           }
+        }
+
+        function getPositionsForChord(chord)
+        {
+            var ch = GuitarJS.ChordJS.create(chord);
+            if (ch.notes != undefined ) {
+                while(ch.has_next()) {
+                  var positions = ch.next();
+                  var fretl5= true;
+                  for (var fret_pos in positions) {
+                    if (positions[fret_pos]>5){
+                        fretl5=false;
+                        break;
+                    }
+                  }
+                  if (fretl5)
+                    return positions;
+                  else
+                    continue;
+                }
+                return null
+            }
+            else {
+                return null
+            }
         }
 
         return service;
