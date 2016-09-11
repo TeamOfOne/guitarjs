@@ -39,18 +39,7 @@
         vm.playChord = function(index) {
             console.log('Score:', vm.score);
             GuitarPlayer.playChord(1, [1,2,0,0,0,0]);
-
-            function next() {
-                GuitarPlayer.playChord(0, [1,2,0,0,0,0]);
-
-            }
-
-
-            setTimeout(next, 1000);
-
-
-
-        }
+        };
         
         function testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx) {
 
