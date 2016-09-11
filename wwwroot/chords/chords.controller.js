@@ -375,7 +375,9 @@
                 vm.score[scoreIdx].strings[vm.numberOfStrings - stringIdx - 1] = 0;
             }
 
+            // Array containing each string's active fret
             var strings = vm.score[scoreIdx].strings;
+            // Textual representation of the array above
             var stringsTxt = "[";
 
             for(var i = 0; i < vm.numberOfStrings - 1; i++) {
@@ -396,18 +398,7 @@
         function changeScoreText (scoreIdx) {
 
             var scoreLine = "";
-            var frets= [0,0,0,0,0,0];
-
-            for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
-                for(var stringIdx = 0 ; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
-                    if(vm.score[scoreIdx][fretIdx][vm.numberOfStrings - stringIdx - 1].show) {
-                        scoreLine = scoreLine +  "s" + (stringIdx + 1) + "f" + fretIdx  + " ";
-                        frets[stringIdx]= fretIdx;
-                    }
-                }
-
-            }
-
+            var frets = vm.score[scoreIdx].strings;
             var extracted_chord = GuitarPlayer.getChord(frets);
             $rootScope.scoreText[scoreIdx] = extracted_chord;
         }
