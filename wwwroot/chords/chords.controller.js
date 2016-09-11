@@ -400,7 +400,7 @@
             var scoreLine = "";
             var frets = vm.score[scoreIdx].strings;
             var extracted_chord = GuitarPlayer.getChord(frets);
-            $rootScope.scoreText[scoreIdx] = extracted_chord;
+            $rootScope.scoreText[scoreIdx] = extracted_chord || "unknown chord";
         }
 
         function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
