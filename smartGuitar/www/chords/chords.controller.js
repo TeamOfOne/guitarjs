@@ -171,12 +171,21 @@
 
         function startGuitarPlaying() {
 
+            _.each(vm.score, function (strings, index) {
+                _.each(strings, function (string) {
+                    _.each(string, function (c) {
+                        c.playing = false;
+                    });
+                });
+            });
+
             vm.playing = !vm.playing;
 
             var startSequenceN = 0;
             var blockStartTime = audioCtx.currentTime;
             var startChordIndex = 0;
             var precacheTime = 0.0;
+
             queueStrums(startSequenceN, blockStartTime, startChordIndex, precacheTime);
         }
 
