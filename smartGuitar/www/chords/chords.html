@@ -3,6 +3,7 @@
 
 <div class="chord_wrapper list card"
      style="background-color: white; margin: 1em;"
+     ng-style="{ 'float' : false ? 'left' : 'none' }"
      ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index">
 
     <div class="item">
@@ -74,10 +75,12 @@
         {{!chordsCtrl.playing ? 'Play' : 'Stop!' }}
     </a>
 
+<!--
     <a class="item item-icon-left assertive" ng-click="chordsCtrl.exportToPng(scoreIndex)">
         <i class="icon ion-gear-a"></i>
         Export PNG
     </a>
+-->
 </div>
 
   </ion-content>
