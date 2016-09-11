@@ -420,7 +420,7 @@
                 for (var stringIdx = 0; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
                     if (vm.score[scoreIdx][fretIdx][vm.numberOfStrings - stringIdx - 1].show) {
                         scoreLine = scoreLine + "s" + (stringIdx + 1) + "f" + fretIdx + " ";
-                        frets[stringIdx] = fretIdx;
+                        frets[stringIdx] = fretIdx + 1;
                     }
                 }
 
