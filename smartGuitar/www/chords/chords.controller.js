@@ -24,15 +24,12 @@
         vm.line_stroke = 'black';
         vm.line_stroke_width = 2;
 
-        //circles setup                                 
-        vm.circle_l_r = 6;
-        vm.circle_l_stroke = 'black';
-        vm.circle_l_stroke_width = 2;
-        vm.circle_l_fill = 'red';
-        vm.circle_r_r = 3;
-        vm.circle_r_stroke = 'black';
-        vm.circle_r_stroke_width = 1;
-        vm.circle_r_fill = 'red';
+        //circles setup
+        vm.circle_l_r            = 5;
+        vm.circle_l_stroke       = 'transparent';
+        vm.circle_l_stroke_width = 3;
+        vm.circle_l_fill         = 'black';
+
 
         // Controller api
         vm.clickCircle = clickCircle;
