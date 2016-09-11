@@ -41,11 +41,20 @@
             GuitarPlayer.playChord;
         }
         
-            function testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx) {
+        function testIfNotAlreadyFourFingers(chord, scoreIdx, fretIdx, stringIdx) {
 
+            return true;
+
+/*
             //you can add if you are de-selcting
             if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
                 return true;
+            }
+
+            for(var sidx = 0; sidx < vm.numberOfStrings; sidx++) {
+                if(vm.score[scoreIdx][fretIdx][sidx].show) {
+                    return true;
+                }
             }
 
             //or if still fingers left
@@ -60,6 +69,8 @@
             }
 
             return totalFingers < 4;
+*/
+
         }
 
         function getMappingForString(stringIdx, show) {
@@ -157,7 +168,36 @@
             return mappings
         }
 
+        function notAlreadyAFingerInThisString(scoreIdx, fretIdx, stringIdx) {
+
+            var result = true;
+
+            for(var j = 0; j < vm.numberOfFrets; j++) {
+                if(vm.score[scoreIdx][j][stringIdx].show){
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
         function toggleCirclesForClick(chord, scoreIdx, fretIdx, stringIdx) {
+
+/*
+            if(notAlreadyAFingerInThisString(scoreIdx, fretIdx, stringIdx)) {
+
+            }
+            */
+
+            for(var j = 0; j < vm.numberOfFrets; j++) {
+                if(j == fretIdx) {
+                    vm.score[scoreIdx][fretIdx][stringIdx].show = !vm.score[scoreIdx][fretIdx][stringIdx].show;
+                }
+                else {
+                    vm.score[scoreIdx][j][stringIdx].show = false;
+                }
+            }
+/*
             for(var j = 0; j < vm.score[scoreIdx][fretIdx].length; j++) {
                 if(j == stringIdx) {
                     vm.score[scoreIdx][fretIdx][stringIdx].show = !vm.score[scoreIdx][fretIdx][stringIdx].show;
@@ -166,6 +206,36 @@
                     vm.score[scoreIdx][fretIdx][j].show = false;
                 }
             }
+*/
+        }
+
+        function updateString(scoreIdx, fretIdx, stringIdx) {
+
+            if(vm.score[scoreIdx].strings[vm.numberOfStrings - stringIdx - 1] != fretIdx + 1) {
+                vm.score[scoreIdx].strings[vm.numberOfStrings - stringIdx - 1] = fretIdx + 1;
+            }
+            else {
+                vm.score[scoreIdx].strings[vm.numberOfStrings - stringIdx - 1] = 0;
+            }
+
+            var strings = vm.score[scoreIdx].strings;
+            var stringsTxt = "[";
+
+            for(var i = 0; i < vm.numberOfStrings - 1; i++) {
+                stringsTxt = stringsTxt + strings[i] + ", "
+            }
+
+/*
+
+            for(var i = vm.numberOfStrings - 1; i > 0; i--) {
+                stringsTxt = stringsTxt + strings[i] + ", "
+            }
+
+*/
+
+            stringsTxt = stringsTxt + strings[vm.numberOfStrings - 1] + "]"
+
+            vm.score[scoreIdx].stringsTxt = stringsTxt;
         }
 
         function changeScoreText (scoreIdx) {
@@ -174,8 +244,8 @@
 
             for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
                 for(var stringIdx = 0 ; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
-                    if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
-                        scoreLine = scoreLine +  "s" + (vm.numberOfStrings - stringIdx - 1) + "f" + fretIdx  + " ";
+                    if(vm.score[scoreIdx][fretIdx][vm.numberOfStrings - stringIdx - 1].show) {
+                        scoreLine = scoreLine +  "s" + (stringIdx + 1) + "f" + fretIdx  + " ";
                     }
                 }
             }
@@ -211,6 +281,7 @@
  
             if(canAdd) {
                 toggleCirclesForClick(chord, scoreIdx, fretIdx, stringIdx);
+                updateString(scoreIdx, fretIdx, stringIdx);
                 changeScoreText(scoreIdx);
             }
             else {
