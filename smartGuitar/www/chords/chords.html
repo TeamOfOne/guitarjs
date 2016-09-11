@@ -1,0 +1,92 @@
+<ion-view view-title="Guitar Chords">
+  <ion-content>
+
+
+
+
+
+<div class="chord_wrapper"
+     style="float: left; background-color: white;"
+     ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index">
+
+    <div class="wrappSvg"
+         ng-style="{ 'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }">
+
+        <svg id="chord_{{scoreIndex}}"
+             xmlns="http://www.w3.org/2000/svg"
+             xmlns:xlink="http://www.w3.org/1999/xlink"
+             version="1.1"
+             ng-style="{
+                'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap),
+                'height' : chordsCtrl.gap * chordsCtrl.numberOfFrets
+        }"
+             ng-show="chordsCtrl.showSvg">
+
+            <g transform="translate(10, 2) rotate(90 50 50)">
+                <g ng-attr-transform="translate({{fretIndex * chordsCtrl.gap}}, 0)"
+                   ng-attr-stroke-width="2"
+                   ng-attr-stroke="black"
+                   ng-repeat="(fretIndex, fret) in frets">
+
+                    <line ng-repeat="(mapIdx, mapping) in fret track by $index"
+                          id="line_{{$index}}"
+                          ng-attr-x1="{{mapping.x1}}"
+                          ng-attr-y1="{{mapping.y1}}"
+                          ng-attr-x2="{{mapping.x2}}"
+                          ng-attr-y2="{{mapping.y2}}"
+                          ng-click="chordsCtrl.clickCircle(mapping, scoreIndex, fretIndex, $index)"
+                          ng-attr-stroke="{{chordsCtrl.line_stroke}}"
+                          ng-attr-stroke-width="{{chordsCtrl.line_stroke_width}}"/>
+
+
+
+                    <circle ng-repeat="(mapIdx, mapping) in fret track by $index"
+                            ng-click="chordsCtrl.clickCircle(mapping, scoreIndex, fretIndex, $index)"
+                            id="circle_l_{{$index}}"
+                            ng-attr-cx="{{ mapping.x1 + (mapping.x2 - mapping.x1) / 2 }}"
+                            ng-attr-cy="{{ mapping.y1 + (mapping.y2 - mapping.y1) / 2 }}"
+                            ng-attr-r="{{chordsCtrl.circle_l_r}}"
+                            ng-attr-stroke="{{ mapping.show ? chordsCtrl.circle_l_stroke : 'transparent' }}"
+                            ng-attr-stroke-width="{{chordsCtrl.circle_l_stroke_width}}"
+                            ng-attr-fill="{{ mapping.show ? (mapping.playing ? 'yellow' : chordsCtrl.circle_l_fill) : 'transparent' }}">
+
+                    </circle>
+
+
+                    <line ng-attr-x1="0"
+                          ng-attr-y1="0"
+                          ng-attr-x2="0"
+                          ng-attr-y2="{{ chordsCtrl.gap * chordsCtrl.numberOfFrets }}"
+                          ng-attr-stroke="{{ mapIdx !== 0 ? chordsCtrl.line_stroke : 10 }}"
+                          ng-attr-stroke-width="{{ chordsCtrl.line_stroke_width }}">
+                    </line>
+
+                </g>
+            </g>
+        </svg>
+    </div>
+    <div class="wrappInput">
+        <input ng-model="$root.scoreText[scoreIndex]"
+               ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
+               type="text"/>
+        <br>
+        <input ng-model="chordsCtrl.score[scoreIndex].stringsTxt"
+               ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
+               type="text"/>
+        <br>
+        <button ng-click="chordsCtrl.playChord(scoreIndex)">Play</button>
+        <button ng-click="chordsCtrl.exportToPng(scoreIndex)">PNG</button>
+    </div>
+
+    <pre style="display: none;">{{ frets.strings | json }}</pre>
+</div>
+<button ng-click="chordsCtrl.playSong()">Play me !</button>
+
+
+
+
+
+    
+
+  </ion-content>
+</ion-view>

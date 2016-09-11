@@ -46,19 +46,20 @@ GuitarString.prototype.pluck = function(startTime, velocity, tab) {
     var sampleCount = 1.0 * sampleRate;
     var buffer = this.audioCtx.createBuffer(channels, sampleCount, sampleRate);
 
-    // Parameters for the Karplus-Strong algorithm
-    // Hardcoded for now, but eventually we'll want to make this parametrizable
+  //  var options = getControlsValues();
     var options = {
         stringTension: 0,
         characterVariation: 0.5,
         stringDamping: 0.5,
-        stringDampingVariation: 0.25,
+        stringDampingVariation: 0.5,
         stringDampingCalculation: 'magic',
-        pluckDamping: 0.1,
-        pluckDampingVariation: 0.1,
+        pluckDamping: 0.5,
+        pluckDampingVariation: 0.25,
         body: 'simple',
         stereoSpread: 0.2
     };
+
+
 
     var smoothingFactor = calculateSmoothingFactor(this, tab, options);
     // 'tab' represents which fret is held while plucking
