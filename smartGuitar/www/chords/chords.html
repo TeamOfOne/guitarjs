@@ -3,8 +3,6 @@
 
 
 
-
-
 <div class="chord_wrapper"
      style="float: left; background-color: white;"
      ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index">
@@ -45,7 +43,7 @@
                             id="circle_l_{{$index}}"
                             ng-attr-cx="{{ mapping.x1 + (mapping.x2 - mapping.x1) / 2 }}"
                             ng-attr-cy="{{ mapping.y1 + (mapping.y2 - mapping.y1) / 2 }}"
-                            ng-attr-r="{{chordsCtrl.circle_l_r}}"
+                            ng-attr-r="{{chordsCtrl.circle_l_r}}"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
                             ng-attr-stroke="{{ mapping.show ? chordsCtrl.circle_l_stroke : 'transparent' }}"
                             ng-attr-stroke-width="{{chordsCtrl.circle_l_stroke_width}}"
                             ng-attr-fill="{{ mapping.show ? (mapping.playing ? 'yellow' : chordsCtrl.circle_l_fill) : 'transparent' }}">
@@ -80,13 +78,19 @@
 
     <pre style="display: none;">{{ frets.strings | json }}</pre>
 </div>
-<button ng-click="chordsCtrl.playSong()">Play me !</button>
+<button ng-click="chordsCtrl.playSong()">{{!chordsCtrl.playing ? 'Play me !' : 'No you play so bad, plz stop !' }}</button>
+
+<!--<input type="range" ng-model="chordsCtrl.delta" max="100" min="1"/>{{chordsCtrl.delta}}-->
 
 
 
 
 
-    
+
+
+
+
+
 
   </ion-content>
 </ion-view>
