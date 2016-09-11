@@ -2,23 +2,14 @@
     'use strict';
 
     angular.module('app')
-        .factory('GuitarPlayer', GuitarPlayer);
+        .factory('GuitarPlayer', GuitarService);
 
 
-    GuitarPlayer.$inject = [];
+    GuitarService.$inject = [];
 
-
-    function GuitarPlayer() {
+    function GuitarService() {
         var guitar2 = new Guitar2();
 
-        // external api
-        var service = {
-            playChord: playChord,
-            getChord: getChord
-        };
-
-        // internal
-        var audioContext = getAudioContext();
         var strings = [
             // arguments are:
             // - audio context
@@ -32,6 +23,23 @@
             new GuitarString(audioCtx, audioCtx.destination, 4, 3, 11),  // B3
             new GuitarString(audioCtx, audioCtx.destination, 5, 4, 4)    // E4
         ];
+
+        // internal
+        var audioContext = getAudioContext();
+
+
+
+
+        // external api
+        var service = {
+            strings: strings,
+            playChord: playChord,
+            strumChord: strumChord,
+            getChord: getChord
+        };
+
+        // internal
+        var audioContext = getAudioContext();
 
         function strumChord(time, downstroke, velocity, chord) {
             var pluckOrder;
@@ -59,7 +67,6 @@
           var ex_chord = guitar2.chordFromFingerPos(score);
           if(ex_chord != null)
           {
-            // console.log('Chord from lnotes: '+ ex_chord.longNotation(0));
             return ex_chord.notation(0);
           }
           else
@@ -97,7 +104,6 @@
 
         return audioContext;
     }
-
 
 
 }());
