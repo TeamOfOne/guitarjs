@@ -9,30 +9,30 @@
 
     ChordsController.$inject = ["_", "$rootScope", 'GuitarPlayer'];
     function ChordsController(_, $rootScope, GuitarPlayer) {
-        var vm                  = this;
+        var vm                   = this;
 
-        //instance variables                             
-        vm.showSvg              = true;               
-        vm.gap                  = 20;    
+        //instance variables
+        vm.showSvg               = true;
+        vm.gap                   = 20;
 
         //
-        vm.stringGap            = 20;
-        vm.numberOfStrings      = 6;     
-        vm.numberOfFrets        = 5;         
+        vm.stringGap             = 20;
+        vm.numberOfStrings       = 6;
+        vm.numberOfFrets         = 5;
 
         //strings setup
-        vm.line_stroke          = 'black';
-        vm.line_stroke_width    = 2;
+        vm.line_stroke           = 'black';
+        vm.line_stroke_width     = 2;
 
-        //circles setup                                 
-        vm.circle_l_r           = 6;                    
-        vm.circle_l_stroke      = 'black';              
-        vm.circle_l_stroke_width = 2;                   
-        vm.circle_l_fill        = 'red';                
-        vm.circle_r_r           = 3;                    
-        vm.circle_r_stroke      = 'black';              
-        vm.circle_r_stroke_width = 1;                   
-        vm.circle_r_fill        = 'red';                
+        //circles setup
+        vm.circle_l_r            = 6;
+        vm.circle_l_stroke       = 'black';
+        vm.circle_l_stroke_width = 2;
+        vm.circle_l_fill         = 'red';
+        vm.circle_r_r            = 3;
+        vm.circle_r_stroke       = 'black';
+        vm.circle_r_stroke_width = 1;
+        vm.circle_r_fill         = 'red';
 
         // Controller api
         vm.clickCircle = clickCircle;
@@ -41,12 +41,12 @@
 
         var timeUnit = 0.12;
 
-// Create sound samples for the current part of the strum sequence,
-// and queue generation of sound samples of the following part.
-// The rhythms parts have as fine a granularity as possible to enable
-// adjustment of guitar parameters with real-time feedback.
-// (The higher strumGenerationsPerRun, the longer the delay between
-//  parameter adjustments and samples created with the new parameters.)
+        // Create sound samples for the current part of the strum sequence,
+        // and queue generation of sound samples of the following part.
+        // The rhythms parts have as fine a granularity as possible to enable
+        // adjustment of guitar parameters with real-time feedback.
+        // (The higher strumGenerationsPerRun, the longer the delay between
+        // parameter adjustments and samples created with the new parameters.)
         function queueStrums(sequenceN, blockStartTime, chordIndex, precacheTime) {
             var chords = _.map(vm.score, function(s){return s.strings});
 
@@ -173,7 +173,6 @@
             queueStrums(startSequenceN, blockStartTime, startChordIndex, precacheTime);
         }
 
-
         function playSong() {
             var delay = 1000; //  1 second delay between chords
             var totalDelay =  0;
@@ -252,17 +251,16 @@
 
             var frets = [];
 
-            //array com 6 posições contendo valores inteiros
-            //com o indice do fret selecionado
-            //sendo que -1 significa que a string está muted
-            //i.e. indica o fret de cada string (corda da guitarra)
-            //var strings = [-1, 3, 2, 0, 0, 0];
+            // Array com 6 posições contendo valores inteiros
+            // com o indice do fret selecionado
+            // sendo que -1 significa que a string está muted
+            // i.e. indica o fret de cada string (corda da guitarra)
+            // var strings = [-1, 3, 2, 0, 0, 0];
 
-            //significa que vair ter show == true
-            //no na string 2 no fret 3
-            //s0f-1 s1f3 s2f2 s3f0 s4f0 s5f0 
-            //[-1  , 3  ,  2 , 0  , 0  , 0  ];
-
+            // significa que vair ter show == true
+            // no fret 3 da string 2
+            // s0f-1 s1f3 s2f2 s3f0 s4f0 s5f0
+            // [-1  , 3  ,  2 , 0  , 0  , 0  ];
 
             for(var j = 0; j < vm.numberOfFrets; j++) {
                 var mappings = [];
@@ -385,11 +383,9 @@
             }
 
 /*
-
             for(var i = vm.numberOfStrings - 1; i > 0; i--) {
                 stringsTxt = stringsTxt + strings[i] + ", "
             }
-
 */
 
             stringsTxt = stringsTxt + strings[vm.numberOfStrings - 1] + "]"
@@ -416,15 +412,14 @@
             $rootScope.scoreText[scoreIdx] = extracted_chord;
         }
 
-
-           function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
+        function checkIfFirstClickOnChordAndActAcordingly(scoreIdx) {
             var isAny = false;
 
             if(scoreIdx < vm.score.length - 1) {
                 return;
             }
 
-             for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
+            for(var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
                 for(var stringIdx = 0 ; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
                     if(vm.score[scoreIdx][fretIdx][stringIdx].show) {
                         isAny = true;
