@@ -1,0 +1,3 @@
+[submodule "vexchords"]
+	path = vexchords
+	url = https://github.com/0xfe/vexchords.git
