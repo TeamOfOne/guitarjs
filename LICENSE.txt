@@ -1,4 +1,6 @@
-Except otherwise noted (i.e. in the code from other libraries, which have their own licenses), this project is released under the:
+Except otherwise noted
+(i.e. in the code from other libraries, which have their own licenses),
+this project is released under the:
 
 ## ISC License
 
