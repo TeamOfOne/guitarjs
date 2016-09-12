@@ -5,8 +5,11 @@
      style="background-color: white; margin: 1em;"
      ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index">
 
-    <div class="item">
-        <label class="item item-input">
+    <div class="item item-image"
+         style="margin: 2em; border: none!important;"
+         ng-style="{ 'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }">
+
+        <label class="item item-input" style="margin-bottom: 20px;">
             <input ng-model="$root.scoreText[scoreIndex]"
                 ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
                 type="text"
@@ -15,20 +18,11 @@
                 ng-change="chordsCtrl.updateChord(scoreIndex)"/>
         </label>
 
-    </div>
-
-    <div class="item item-image"
-         style="margin: 2em; border: none!important;"
-         ng-style="{ 'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }">
-
         <svg id="chord_{{scoreIndex}}"
              xmlns="http://www.w3.org/2000/svg"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              version="1.1"
-             ng-style="{
-                'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap),
-                'height' : chordsCtrl.gap * chordsCtrl.numberOfFrets
-        }"
+             viewBox="0 0 120 120" preserveAspectRatio="xMidYMax meet"
              ng-show="chordsCtrl.showSvg">
 
             <g transform="translate(10, 2) rotate(90 50 50)">
