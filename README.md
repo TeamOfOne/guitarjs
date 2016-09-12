@@ -64,7 +64,7 @@ Among several others, we'd like to highlight the following:
 
 - [VexChords](http://www.vexflow.com/vexchords/),
   an open-source JS+HTML5 Guitar chord generator,
-  for opening our eyes to the possibilities of musical notation on the web
+  for showcasing the possibilities of musical notation on the web
 - [GuitarJs](http://naiquevin.github.io/GuitarJs/),
   a javascript library to work with guitar notes and chords (text-only),
   for powering the chordname-to-diagram translation
@@ -78,4 +78,4 @@ Among several others, we'd like to highlight the following:
   for powering the sound synthesis and reproduction
 - Wikipedia's articles on [Chord](https://en.wikipedia.org/wiki/Chord_(music)#Tabular_notation) and
   [Chord names and symbols](https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)),
-  for the invaluable information about the structure of chord and the rules that underlie their naming system
+  for the detailed information about the structure of chords and the rules that underlie their naming system
