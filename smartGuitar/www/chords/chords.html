@@ -9,11 +9,11 @@
          style="margin: 2em; border: none!important;"
          ng-style="{ 'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }">
 
-        <label class="item item-input" style="margin-bottom: 20px;">
+        <label class="item item-input" style="border: none; margin-bottom: 20px;">
             <input ng-model="$root.scoreText[scoreIndex]"
                 ng-style="{ width : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }"
                 type="text"
-                style="text-align: center;"
+                style="font-size: 24px; text-align: center;"
                 placeholder="Chord name"
                 ng-change="chordsCtrl.updateChord(scoreIndex)"/>
         </label>
