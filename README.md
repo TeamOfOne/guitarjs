@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/TeamOfOne/psc16-team33.png?label=ready&title=Ready)](https://waffle.io/TeamOfOne/psc16-team33)
 ## Smart Guitar
 
 > *Interactive creating, editing, playing and sharing guitar scores in the browser*
