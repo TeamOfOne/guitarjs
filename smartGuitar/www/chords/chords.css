@@ -3,3 +3,8 @@
         float: left;
     }
 }
+
+circle {
+    -webkit-transition: fill ease-out 0.5s; /* Safari */
+    transition: fill ease-out 0.5s;
+}
