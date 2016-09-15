@@ -1,0 +1,10 @@
+@media screen and (min-width : 400px) {
+    .chord_wrapper {
+        float: left;
+    }
+}
+
+circle {
+    -webkit-transition: fill ease-out 0.5s; /* Safari */
+    transition: fill ease-out 0.5s;
+}
