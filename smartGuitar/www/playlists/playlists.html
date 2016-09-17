@@ -1,4 +1,4 @@
-<ion-view view-title="Guitar Chords">
+<ion-view id="{{ playlists.length === 0 ? 'empty' : '' }}_list" view-title="Guitar Chords">
   <ion-content>
     <ion-list ng-if="playlists.length > 0">
       <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}/{{playlist.title}}">
