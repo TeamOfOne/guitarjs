@@ -1,18 +1,25 @@
 <ion-view view-title="Guitar Chords">
   <ion-content>
-
-<!--
-    <ion-list>
-      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+    <ion-list ng-if="playlists.length > 0">
+      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}/{{playlist.title}}">
         {{playlist.title}}
       </ion-item>
     </ion-list>
--->
-
-    <ion-list>
-      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}/noname">
-        {{playlist.title}}
-      </ion-item>
-    </ion-list>
+    
+    <div class="row row-center" ng-if="playlists.length === 0">
+      <div class="col col-center">
+        <i style="font-size: 120px; color: gray" class="icon ion-alert-circled"></i>
+        <br>
+        You have no songs!
+      </div>
+    </div>
   </ion-content>
+
+  <div class="tabs tabs-icon-top">
+    <a class="tab-item" ng-click="addSong()">
+      <i class="icon ion-plus-circled"></i>
+      new song
+    </a>
+  </div>
+
 </ion-view>

@@ -1,0 +1,25 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Add Song</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeAddSong()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doAdd()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Title</span>
+          <input type="text" ng-model="songData.title">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Author</span>
+          <input type="text" ng-model="songData.author">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Continue</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
