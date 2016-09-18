@@ -549,8 +549,8 @@
                 var x = i % numberChordPerLine;
                 var y = Math.floor(i / numberChordPerLine);
 
-                console.log('x : ' + x);
-                console.log('y : ' + y);
+                //console.log('x : ' + x);
+                //console.log('y : ' + y);
 
                 svgResultData = svgResultData + '<g transform="translate(' 
                                 + (margin_Top + chordSize * x) + ', ' 
@@ -562,6 +562,76 @@
                     var svgData = svgs[i].xml;
                 }
 
+                svgResultData = svgResultData + svgData;
+
+                svgResultData = svgResultData + '</g>';
+
+            }
+
+            svgResultData = svgResultData + ' </svg>';
+
+            console.log(svgResultData);
+
+            var canvas = document.createElement("canvas");
+            var svgSize = svgs[0].getBoundingClientRect();
+            canvas.width = svgSize.width * svgs.length;
+            canvas.height = svgSize.height * svgs.length;
+            var ctx = canvas.getContext("2d");
+
+            var img = document.createElement("img");
+            img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgResultData))));
+
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0);
+                var imgsrc = canvas.toDataURL("image/png");
+
+                var a = document.createElement("a");
+                a.download = container + ".png";
+                a.href = imgsrc;
+                a.click();
+            };
+
+        }
+
+
+
+        //from: https://gist.github.com/gustavohenke/9073132
+        function svg_to_png(container) {
+
+            console.log(container);
+
+            var svg = document.getElementById(container);
+
+            if (typeof window.XMLSerializer != "undefined") {
+                var svgData = (new XMLSerializer()).serializeToString(svg);
+            } else if (typeof svg.xml != "undefined") {
+                var svgData = svg.xml;
+            }
+
+            var canvas = document.createElement("canvas");
+            var svgSize = svg.getBoundingClientRect();
+            canvas.width = svgSize.width;
+            canvas.height = svgSize.height;
+            var ctx = canvas.getContext("2d");
+
+            var img = document.createElement("img");
+            img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
+
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0);
+                var imgsrc = canvas.toDataURL("image/png");
+
+                var a = document.createElement("a");
+                a.download = container + ".png";
+                a.href = imgsrc;
+                a.click();
+            };
+
+        }
+
+        ngOnInit();
+    }
+})();
                 svgResultData = svgResultData + svgData;
 
                 svgResultData = svgResultData + '</g>';
