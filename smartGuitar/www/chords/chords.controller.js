@@ -546,9 +546,15 @@
 
             for(var i = 0; i < svgs.length; i++) {
                 
+                var x = i % numberChordPerLine;
+                var y = Math.floor(i / numberChordPerLine);
+
+                console.log('x : ' + x);
+                console.log('y : ' + y);
+
                 svgResultData = svgResultData + '<g transform="translate(' 
-                                + margin_Top + ', ' 
-                                + (margin_Right + chordSize * i) + ') scale(0.2)">';
+                                + (margin_Top + chordSize * x) + ', ' 
+                                + (margin_Right + chordSize * y) + ') scale(0.2)">';
 
                 if (typeof window.XMLSerializer != "undefined") {
                     var svgData = (new XMLSerializer()).serializeToString(svgs[i]);
