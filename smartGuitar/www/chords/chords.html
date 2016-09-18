@@ -1,13 +1,12 @@
 <ion-view view-title="Guitar Chords">
   <ion-content>
 
-<div class="chord_wrapper list card"
-     style="background-color: white; margin: 1em;"
-     ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index">
+    <div class="chord_wrapper list card" 
+         style="background-color: white; margin: 1em;" 
+         ng-repeat="(scoreIndex, frets) in chordsCtrl.score track by $index">
 
-    <div class="item item-image"
-         style="margin: 2em; border: none!important;"
-         ng-style="{ 'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }">
+      <div class="item item-image" style="margin: 2em; border: none!important;" 
+           ng-style="{ 'width' : chordsCtrl.numberOfStrings * (chordsCtrl.stringGap) }">
 
         <label class="item item-input" style="border: none; margin-bottom: 20px;">
             <input ng-model="$root.scoreText[scoreIndex]"
@@ -18,12 +17,13 @@
                 ng-change="chordsCtrl.updateChord(scoreIndex)"/>
         </label>
 
-        <svg id="chord_{{scoreIndex}}"
-             xmlns="http://www.w3.org/2000/svg"
-             xmlns:xlink="http://www.w3.org/1999/xlink"
-             version="1.1"
-             viewBox="0 0 120 120" preserveAspectRatio="xMidYMax meet"
-             ng-show="chordsCtrl.showSvg">
+        <svg id="chord_{{scoreIndex}}" 
+            xmlns="http://www.w3.org/2000/svg" 
+            xmlns:xlink="http://www.w3.org/1999/xlink" 
+            version="1.1" 
+            viewBox="0 0 120 120" 
+            preserveAspectRatio="xMidYMax meet" 
+            ng-show="chordsCtrl.showSvg">
 
             <g transform="translate(10, 2) rotate(90 50 50)">
                 <g ng-attr-transform="translate({{fretIndex * chordsCtrl.gap}}, 0)"
@@ -63,40 +63,22 @@
                 </g>
             </g>
         </svg>
+      </div>
+
+      <a ng-disabled="chordsCtrl.playing" class="item item-icon-left" ng-class="{ 'assertive' : !chordsCtrl.playing, 'stable' : chordsCtrl.playing }" ng-click="chordsCtrl.playChord(scoreIndex)">
+        <i class="icon ion-music-note"></i> Play Note
+      </a>
+
+      <a class="item item-icon-left assertive" ng-click="chordsCtrl.exportToPng(scoreIndex)">
+        <i class="icon ion-gear-a"></i> Export PNG
+      </a>
     </div>
-
-    <a ng-disabled="chordsCtrl.playing" 
-       class="item item-icon-left" 
-        ng-class="{ 'assertive' : !chordsCtrl.playing, 'stable' : chordsCtrl.playing }" 
-        ng-click="chordsCtrl.playChord(scoreIndex)">
-        <i class="icon ion-music-note"></i>
-        Play Note
-    </a>
-
-    <a class="item item-icon-left assertive" ng-click="chordsCtrl.exportToPng(scoreIndex)">
-        <i class="icon ion-gear-a"></i>
-        Export PNG
-    </a>
-</div>
 
   </ion-content>
 
-
-<div class="tabs tabs-icon-only">
-<!--
-  <a class="tab-item">
-    <i class="icon ion-home"></i>
-  </a>
--->
-
-  <a class="tab-item" ng-click="chordsCtrl.playSong()">
-    <i class="icon" ng-class="{ 'ion-play' : !chordsCtrl.playing, 'ion-stop' : chordsCtrl.playing }" ></i>
-  </a>
-<!--
-  <a class="tab-item" ng-click="chordsCtrl.exportToPng()">
-    <i class="icon ion-gear-a"></i>
-  </a>
--->
-
-</div>
+  <div class="tabs tabs-icon-only">
+    <a class="tab-item" ng-click="chordsCtrl.playSong()">
+      <i class="icon" ng-class="{ 'ion-play' : !chordsCtrl.playing, 'ion-stop' : chordsCtrl.playing }"></i>
+    </a>
+  </div>
 </ion-view>

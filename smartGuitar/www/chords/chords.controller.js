@@ -522,8 +522,72 @@
         function exportToPng(idx) {
             var target = "chord_" + idx;
 
-            svg_to_png(target);
+            //svg_to_png(target);
+            all_svg_to_png(target);
         }
+
+        //from: https://gist.github.com/gustavohenke/9073132
+        function all_svg_to_png(container) {
+
+            var margin_Top = 10;
+            var margin_Right = 50;
+            var pictureSize = 1200;
+            var numberChordPerLine = 5;
+            var chordSize = pictureSize / numberChordPerLine;
+
+            console.log(container);
+
+            var svgs = document.getElementsByTagName("svg");
+
+            var svgResultData = '<svg class="defs-only" ' + 
+                                    'viewBox="0 0 '+ pictureSize +' '+ pictureSize +'" ' +
+                                    'xmlns="http://www.w3.org/2000/svg" '+
+                                    'xmlns:xlink="http://www.w3.org/1999/xlink" > ';
+
+            for(var i = 0; i < svgs.length; i++) {
+                
+                svgResultData = svgResultData + '<g transform="translate(' 
+                                + margin_Top + ', ' 
+                                + (margin_Right + chordSize * i) + ') scale(0.2)">';
+
+                if (typeof window.XMLSerializer != "undefined") {
+                    var svgData = (new XMLSerializer()).serializeToString(svgs[i]);
+                } else if (typeof svgs[i].xml != "undefined") {
+                    var svgData = svgs[i].xml;
+                }
+
+                svgResultData = svgResultData + svgData;
+
+                svgResultData = svgResultData + '</g>';
+
+            }
+
+            svgResultData = svgResultData + ' </svg>';
+
+            console.log(svgResultData);
+
+            var canvas = document.createElement("canvas");
+            var svgSize = svgs[0].getBoundingClientRect();
+            canvas.width = svgSize.width * svgs.length;
+            canvas.height = svgSize.height * svgs.length;
+            var ctx = canvas.getContext("2d");
+
+            var img = document.createElement("img");
+            img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgResultData))));
+
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0);
+                var imgsrc = canvas.toDataURL("image/png");
+
+                var a = document.createElement("a");
+                a.download = container + ".png";
+                a.href = imgsrc;
+                a.click();
+            };
+
+        }
+
+
 
         //from: https://gist.github.com/gustavohenke/9073132
         function svg_to_png(container) {
