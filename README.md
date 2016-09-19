@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/TeamOfOne/psc16-team33.png?label=ready&title=Ready)](https://waffle.io/TeamOfOne/psc16-team33)
-## Smart Guitar
+## guitarjs
 
 > *Interactive creating, editing, playing and sharing guitar scores in the browser.
 > [Try the live demo here](https://teamofone.github.io/psc16-team33/#/app/playlists/1/noname)!*
