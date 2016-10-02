@@ -35,6 +35,7 @@
             strings: strings,
             playChord: playChord,
             strumChord: strumChord,
+            getSingleNote: getSingleNote,
             getChord: getChord,
             getPositionsForChord: getPositionsForChord
         };
@@ -61,6 +62,20 @@
 
         function playChord(downstroke, chord) {
             strumChord(0, downstroke, 1, chord);
+        }
+
+
+        function getSingleNote(score)
+        {
+          var extracted_note = guitar2.noteOnPos(score);
+          if(extracted_note != null)
+          {
+            return extracted_note.simple();
+          }
+          else
+          {
+            return ""
+          }
         }
 
         function getChord(score)

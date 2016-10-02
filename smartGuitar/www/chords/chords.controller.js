@@ -422,20 +422,27 @@
 
         function changeScoreText(scoreIdx) {
 
-            var scoreLine = "";
             var frets = [0, 0, 0, 0, 0, 0];
+            var note = [0,0];
+            var clicked_notes = 0;
 
             for (var fretIdx = 0; fretIdx < vm.score[scoreIdx].length; fretIdx++) {
                 for (var stringIdx = 0; stringIdx < vm.score[scoreIdx][fretIdx].length; stringIdx++) {
                     if (vm.score[scoreIdx][fretIdx][vm.numberOfStrings - stringIdx - 1].show) {
-                        scoreLine = scoreLine + "s" + (stringIdx + 1) + "f" + fretIdx + " ";
                         frets[stringIdx] = fretIdx + 1;
+                        note[0] = stringIdx; note[1]= fretIdx+1;
+                        clicked_notes++;
                     }
                 }
-
+            }
+            var extracted_chord = "";
+            if (clicked_notes == 1){
+                extracted_chord = "<" + GuitarPlayer.getSingleNote(note) + ">";
+            }
+            else{
+                extracted_chord = GuitarPlayer.getChord(frets);
             }
 
-            var extracted_chord = GuitarPlayer.getChord(frets);
             $rootScope.scoreText[scoreIdx] = extracted_chord;
         }
 
