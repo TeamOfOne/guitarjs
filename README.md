@@ -73,3 +73,18 @@ Among several others, we'd like to highlight the following:
 - Wikipedia's articles on [Chord](https://en.wikipedia.org/wiki/Chord_(music)#Tabular_notation) and
   [Chord names and symbols](https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)),
   for the detailed information about the structure of chords and the rules that underlie their naming system
+
+## Further references, more towards build a piano synthesizer
+- [How to Build a Piano Keyboard Using Vanilla JavaScript](https://www.freecodecamp.org/news/javascript-piano-keyboard/),
+  Making a playable piano keyboard can be a great way to learn a programming language (besides being heaps of fun). 
+  This tutorial shows you how to code one using vanilla JavaScript without the need for any external libraries or frameworks.
+- [Musical Keyboard - JS Dynamic Audio Synth](https://keithwhor.com/music/),
+  This is a an emulated keyboard (a synthesizer!) that spans three musical octaves (C3-B5).
+  Give it a shot, click any key with your mouse, or use the keys on your keyboard as indicated on the screen!
+  (If you don't hear anything, try using Google Chrome or update your browser to the newest version. 
+  Mobile devices aren't all quite supported yet.)
+- [Let's Create a Javascript Synthesizer! - video](https://www.youtube.com/watch?v=wIxqNrooWws)
+- [How to Live Code Music in Javascript using Tone.js and Ace Editor - video](https://www.youtube.com/watch?v=xBQef0fs-_Q)
+- [An HTML5 JavaScript synth piano that generates all of its sounds using data URIs. http://mrcoles.com/piano/](https://github.com/mrcoles/javascript-piano)
+- [JS Dynamic Audio Synth](https://github.com/keithwhor/audiosynth)
+
